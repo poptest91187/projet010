@@ -4,14 +4,13 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Spécifier directement l'URL du dépôt Git
-                //git url: 'https://github.com/poptest91187/projet010.git', branch: 'main'
+                // Extraire le dépôt configuré dans le projet Jenkins
                 checkout scm
-		echo 'Pulled branch main'
+                echo 'Pulled branch main'
             }
         }
 
- stage('Build') {
+        stage('Build') {
             steps {
                 // Exécuter la compilation avec Maven
                 sh 'mvn clean install'
@@ -25,30 +24,23 @@ pipeline {
             }
         }
 
-
- stage('Archive Artifacts') {
+        stage('Archive Artifacts') {
             steps {
                 // Archiver les artefacts (fichiers .jar/.war générés)
                 archiveArtifacts artifacts: '**/target/*.war', allowEmptyArchive: true
             }
         }
-    
+    }
 
     post {
         always {
-            // Afficher le résultat de l'exécution, même en cas d'échec
-            junit '**/target/surefire-reports/*.xml'
+            echo 'Pipeline finished, whether successful or failed.'
         }
-    }
-
- stage('Test2') {
-            steps {
-                // Exécuter les tests avec Maven
-                sh 'tree'
-            }
+        success {
+            echo 'Pipeline succeeded!'
         }
-
-
-
+        failure {
+            echo 'Pipeline failed.'
+        }
     }
 }
