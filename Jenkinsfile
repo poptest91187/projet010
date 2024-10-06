@@ -32,7 +32,7 @@ pipeline {
                 archiveArtifacts artifacts: '**/target/*.war', allowEmptyArchive: true
             }
         }
-    }
+    
 
     post {
         always {
