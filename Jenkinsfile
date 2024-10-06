@@ -14,7 +14,7 @@ pipeline {
         stage('List Files') {
             steps {
                 // Lister les fichiers du dépôt cloné
-                sh 'ls -la'
+                sh 'pwd'
             }
         }
     }
