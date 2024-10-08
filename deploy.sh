@@ -1,5 +1,5 @@
 #!/bin/bash
-
+mvn clean install
 # Nom de l'image Docker
 IMAGE_NAME="mon-app"
 # Nom du conteneur Docker
